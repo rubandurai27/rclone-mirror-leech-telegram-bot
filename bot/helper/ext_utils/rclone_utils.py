@@ -3,23 +3,24 @@ from json import loads as jsonloads
 from re import escape
 from os import path as ospath
 from asyncio.subprocess import PIPE, create_subprocess_exec
-from bot import LOGGER, OWNER_ID, config_dict
+from bot import LOGGER, OWNER_ID, config_dict, remotes_data
 from bot.helper.ext_utils.filters import CustomFilters
 from bot.helper.ext_utils.message_utils import editMessage, sendMarkup, sendMessage
 from bot.helper.ext_utils.misc_utils import ButtonMaker
 from bot.helper.ext_utils.rclone_data_holder import get_rclone_data, update_rclone_data
 
             
+            
 async def is_remote_selected(user_id, message):
     if config_dict['MULTI_RCLONE_CONFIG'] or CustomFilters._owner_query(user_id):
         if DEFAULT_OWNER_REMOTE := config_dict['DEFAULT_OWNER_REMOTE']:
                 if user_id == OWNER_ID:
-                    update_rclone_data("MIRRORSET_REMOTE", DEFAULT_OWNER_REMOTE, user_id)
+                    update_rclone_data("CLOUDSEL_REMOTE", DEFAULT_OWNER_REMOTE, user_id)
                     return True
-        if get_rclone_data("MIRRORSET_REMOTE", user_id):
+        if get_rclone_data("CLOUDSEL_REMOTE", user_id) or len(remotes_data) > 0:
             return True
         else:
-            await sendMessage("Select a cloud first, use /mirrorset", message)
+            await sendMessage("Select a cloud first, use /cloudselect", message)
             return False
     else:
         return True
@@ -33,10 +34,10 @@ async def is_rclone_config(user_id, message, isLeech=False):
             if isLeech:
                 return True
             else:
-                await sendMessage("Send a rclone config file, use /config", message)
+                await sendMessage("Send a rclone config file, use /botfiles", message)
                 return False
     else:
-        path= ospath.join("users", "global_rclone", "rclone.conf")
+        path= ospath.join("users", "grclone", "rclone.conf")
         if ospath.exists(path):
             return True
         else:
@@ -52,7 +53,7 @@ def get_rclone_config(user_id):
         if ospath.exists(rc_path):
             return rc_path
     else:
-        rc_path = ospath.join("users", "global_rclone", "rclone.conf")      
+        rc_path = ospath.join("users", "grclone", "rclone.conf")      
         if ospath.exists(rc_path):
             return rc_path
 
@@ -64,7 +65,7 @@ async def list_remotes(message, rclone_remote, base_dir, callback, edit=False):
     conf.read(path)
     for remote in conf.sections():
         prev = ""
-        if remote == get_rclone_data("MIRRORSET_REMOTE", user_id):
+        if remote == get_rclone_data("CLOUDSEL_REMOTE", user_id):
             prev = "✅"
         buttons.cb_buildbutton(f"{prev} 📁 {remote}", f"{callback}^remote^{remote}^{message.id}")
     buttons.cb_buildbutton("✘ Close Menu", f"{callback}^close^{message.id}", 'footer')

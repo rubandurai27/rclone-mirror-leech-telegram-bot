@@ -6,91 +6,62 @@ An Rclone Mirror-Leech Telegram Bot to transfer to and from many clouds. Based o
 ### Rclone
 - Copy file/folder from cloud to cloud
 - Leech file/folder from cloud to Telegram
-- Mirror from Telegram to a selected cloud
-- Mirror from Telegram to multiple clouds
+- Mirror Link/Torrent/Magnets/Mega/Telegram-Files to cloud
+- Mirror from Telegram to multiple clouds at the same time
 - Telegram Navigation Button Menus to interact with cloud
 - File Manager: size, mkdir, delete, dedupe and rename
 - Service Accounts support with automatic switching
-- Create cloud index as http or webdav 
-- Sync clouds (not folders)
+- Create cloud index as http or webdav webserver
+- Sync between clouds (not folders)
 - Search files on cloud
 - Clean cloud trash
-- View storage info 
-
-### qBittorrent
-- Qbittorrent support for torrent and magnets
-- Select files from Torrent before downloading 
-- Edit global options from bot settings
-
-### Aria2c
-- Aria support for direct download links
-- Netrc support
-- Direct link authentication from bot
-- Edit global options from bot settings
-
-### Mirror
-- From Telegram to cloud
-- Link/Torrent/Magnets/Mega to cloud 
-- Mirror to local (no cloud)
-- Mirror to multiple clouds at the same time.
-- Renaming for Telegram files
-- Files in batch from Telegram restricted channels
-- Links in batch
-- Queue system
-
-### Leech
-- Link/Torrent/Magnets/Mega to Telegram 
-- Thumbnail for each user
-- Set upload as document or as media for each user
-- Files in batch from Telegram restricted channels
-- Links in batch
-- Upload files to a superGroup/channel.
-- 4gb file with premium account
-
-### Status
-- Status while downloading and uploading
-- Status Pages for unlimited tasks
-- Cancel all buttons for choosing specific tasks status to cancel
-
-### Archives
-- Extract and Zip link/file from Telegram to cloud
-- Extract and Zip folder/file from cloud to Telegram
-- Using 7-zip tool to extract all supported files
-- Extract rar, zip and 7z with or without password
-
-### Database
-- Mongo Database
-- Save owner settings
-- Save user settings, including thumbnails.
-- Save private files (rclone.conf, token.pickle, etc)
-- Save RSS last recorded data
-
-### RSS
-- Rss feed with filter support
+- View cloud storage info 
 
 ### Others
-- Load and overwrite token.pickle, rclone.conf, config.env and accounts.zip from bot
-- Edit config variables from bot
-- Index support (rclone index and cloudfare workers index with google drive)
+- Send rclone.conf file from bot
+- Index support (rclone index for all remotes)
+- Files in batch from Telegram private/restricted channels
+- Links in batch from txt or message
+- Multizip mirror and leech
+- Extract and Zip link/file from Telegram to cloud
+- Extract and Zip folder/file from cloud to Telegram
+- Mirror to local (no cloud)
+- Queue system for mirror
+- Refactor of the whole code to use pyrogram with async/await
 
 ### From Base Repository
+- Link/Torrent/Magnets/Mega to Telegram 
+- Aria support for direct download links
+- Qbittorrent support for torrent and magnets
+- Select files from Torrent before downloading 
 - Search on torrents with Torrent Search API or with variable plugins using qBittorrent search engine
-- Mongo Database support
 - Mega.nz for mega links
-- Ytdl support
+- Ytdl support 
+- Mongo DB support
+- Save user settings, including thumbnails.
+- Edit global options from bot settings
+- Send private files(token.pickle, config.env and accounts.zip) from bot
+- Save RSS last recorded data
+- Rss feed with filter support
+- Netrc support
+- Renaming for Telegram files
+- Direct link authentication from bot
+- Using 7-zip tool to extract all supported files
+- Extract rar, zip and 7z with or without password
+- Status Pages for unlimited tasks
+- Upload files to a superGroup/channel.
+- 4gb file with premium account
+- Thumbnail for each user
+- Set upload as document or as media for each user
+- Cancel all buttons for choosing specific tasks status to cancel
 - Docker support
+- Cloudfare workers index support for Google Drive
 - Shell and Executor
 - Extensions Filter for the files to be uploaded/cloned
-- Select files from Torrent before downloading 
 - Direct link authentication for specific link while using the bot (it will work even if only username or password)
 - Custom name for all links except torrents and mega. 
-- Save restricted messages from private channels.
-- Upload files to supergroup/channel.
 - Clone Google Drive files/folders from link
-- Thumbnail support
-- Upload as document or as media 
 - Update bot at startup and with restart command using UPSTREAM_REPO
-- Own users settings when using bot or added to supergroup
 - Direct links Supported:
   > letsupload.io, hxfile.co, anonfiles.com, bayfiles.com, antfiles, fembed.com, fembed.net, femax20.com, layarkacaxxi.icu, fcdn.stream, sbplay.org, naniplay.com, naniplay.nanime.in, naniplay.nanime.biz, sbembed.com, streamtape.com, streamsb.net, feurl.com, pixeldrain.com, racaty.net, 1fichier.com, 1drv.ms (Only works for file not folder or business account), uptobox.com (Uptobox account must be premium) and solidfiles.com
 - Extract filetypes:
@@ -103,29 +74,29 @@ mirror - Mirror to selected cloud
 unzipmirror - Mirror and extract to cloud 
 zipmirror - Mirror and zip to cloud 
 multizipmirror - Mirror and zip multiple files to cloud 
-mirrorset - Select cloud/folder where to mirror
-mirrorbatch - Mirror Telegram files and links in batch to cloud 
-leech - Leech from cloud to Telegram
+mirrorbatch - Mirror Telegram files and links in batch to cloud
+cloudselect - Select cloud/folder for mirror 
+leech - Leech from cloud/link to Telegram
 unzipleech - Leech and extract to Telegram 
 zipleech - Leech and zip to Telegram 
 multizipleech - Leech and zip multiple files to Telegram 
-leechbatch - Leech Telegram files and links in batch to Telegram 
+leechbatch - Leech Telegram files/links in batch to Telegram 
 ytdl - Mirror ytdlp supported link
 ytdlzip- Mirror and zip ytdlp supported link
 ytdlleech - Leech yt-dlp supported link
 ytdlzipleech - Leech and zip yt-dlp supported link
-myfiles - File manager
-config - Bot config files
+botfiles - Bot configuration files
+myfiles - Rclone File Manager
 copy - Copy from cloud to cloud
 clone - Clone gdrive link file/folder 
 usetting - User settings
 ownsetting - Owner settings
 rss - Rss feed
-cleanup - Clean drive trash
+cleanup - Clean cloud trash
 cancelall - Cancel all tasks
-storage - Drive details
-serve - Serve remote as index
-sync - Sync two remotes
+storage - Cloud details
+serve - Serve cloud as web index 
+sync - Sync two clouds
 search - Search for torrents
 status - Status message of tasks
 stats - Bot stats
